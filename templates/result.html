@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Screening Result</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+
+</head>
+
+
+<body>
+
+    <div class="container result-container">
+
+        <h1>Resume Screening Result</h1>
+
+        <p class="subtitle">
+            Here is the analysis of your resume against the provided job description.
+        </p>
+
+
+        <!-- Score -->
+
+        <div class="score-card">
+
+            <p class="score-label">
+                Resume Match Score
+            </p>
+
+            <div class="score">
+                {{ score }}%
+            </div>
+
+            {% if score >= 60 %}
+
+                <p class="status success">
+                    ✓ Strong Match
+                </p>
+
+            {% else %}
+
+                <p class="status warning">
+                    ⚠ Needs Improvement
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Matched Skills -->
+
+        <div class="result-section matched">
+
+            <h2>✓ Matched Skills</h2>
+
+            {% if matched %}
+
+                <ul>
+
+                    {% for skill in matched %}
+
+                        <li>{{ skill }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            {% else %}
+
+                <p class="empty-message">
+                    No matching skills were identified.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Missing Skills -->
+
+        <div class="result-section unmatched">
+
+            <h2>✗ Missing Skills</h2>
+
+            {% if unmatched %}
+
+                <ul>
+
+                    {% for skill in unmatched %}
+
+                        <li>{{ skill }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            {% else %}
+
+                <p class="empty-message">
+                    No major missing skills were identified.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Suggestions -->
+
+        <div class="result-section suggestions">
+
+            <h2>💡 Suggestions to Improve</h2>
+
+            {% if suggestions %}
+
+                <ul>
+
+                    {% for suggestion in suggestions %}
+
+                        <li>{{ suggestion }}</li>
+
+                    {% endfor %}
+
+                </ul>
+
+            {% else %}
+
+                <p class="empty-message">
+                    Your resume already covers the identified job requirements.
+                </p>
+
+            {% endif %}
+
+        </div>
+
+
+        <!-- Email Status -->
+
+        {% if recruiter %}
+
+            <div class="email-status">
+
+                {% if email_status %}
+
+                    ✓ Screening result sent to {{ email }}.
+
+                {% else %}
+
+                    ⚠ Screening result could not be sent.
+                    Please check the email configuration.
+
+                {% endif %}
+
+            </div>
+
+        {% endif %}
+
+
+        <!-- Try Again -->
+
+        <div class="try-again">
+
+            <a href="/">
+                ← Screen Another Resume
+            </a>
+
+        </div>
+
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Resume Screener AI</title>
+
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+
+        <h1>Resume Screener AI</h1>
+
+        <p class="subtitle">
+            Analyze your resume against a job description and identify
+            matching and missing skills.
+        </p>
+
+        {% if error %}
+            <div class="error-message">
+                {{ error }}
+            </div>
+        {% endif %}
+
+        <form method="POST" enctype="multipart/form-data">
+
+            <!-- Resume Upload -->
+            <div class="form-group">
+                <label for="resume">
+                    Upload Resume
+                </label>
+
+                <input
+                    type="file"
+                    id="resume"
+                    name="resume"
+                    accept=".pdf,application/pdf"
+                    required
+                >
+
+                <small>
+                    Only PDF files are supported.
+                </small>
+            </div>
+
+
+            <!-- Job Description -->
+            <div class="form-group">
+
+                <label for="jd">
+                    Job Description
+                </label>
+
+                <textarea
+                    id="jd"
+                    name="jd"
+                    rows="8"
+                    placeholder="Paste the complete job description here..."
+                    required
+                ></textarea>
+
+            </div>
+
+
+            <!-- Recruiter Mode -->
+            <div class="recruiter-box">
+
+                <label class="checkbox-label">
+
+                    <input
+                        type="checkbox"
+                        id="recruiter"
+                        name="recruiter"
+                    >
+
+                    <span>
+                        Enable Recruiter Mode
+                    </span>
+
+                </label>
+
+                <p>
+                    Enable this option to send the screening result
+                    to the candidate by email.
+                </p>
+
+            </div>
+
+
+            <!-- Email -->
+            <div
+                class="form-group"
+                id="email-group"
+                style="display: none;"
+            >
+
+                <label for="email">
+                    Candidate Email
+                </label>
+
+                <input
+                    type="email"
+                    id="email"
+                    name="email"
+                    placeholder="candidate@example.com"
+                >
+
+            </div>
+
+
+            <!-- Submit -->
+            <button
+                type="submit"
+                id="submit-button"
+            >
+                Screen Resume
+            </button>
+
+
+            <!-- Loader -->
+            <div
+                class="loader"
+                id="loader"
+                style="display: none;"
+            >
+
+                <img
+                    src="{{ url_for('static', filename='loader.gif') }}"
+                    alt="Processing resume"
+                >
+
+                <p>
+                    Analyzing resume...
+                </p>
+
+            </div>
+
+        </form>
+
+    </div>
+
+
+    <script>
+
+        const form = document.querySelector("form");
+
+        const loader = document.getElementById("loader");
+
+        const submitButton =
+            document.getElementById("submit-button");
+
+        const recruiterCheckbox =
+            document.getElementById("recruiter");
+
+        const emailGroup =
+            document.getElementById("email-group");
+
+        const emailInput =
+            document.getElementById("email");
+
+
+        // Show or hide email field
+        recruiterCheckbox.addEventListener("change", function () {
+
+            if (this.checked) {
+
+                emailGroup.style.display = "block";
+
+                emailInput.required = true;
+
+            } else {
+
+                emailGroup.style.display = "none";
+
+                emailInput.required = false;
+
+                emailInput.value = "";
+
+            }
+
+        });
+
+
+        // Show loader after form submission
+        form.addEventListener("submit", function () {
+
+            submitButton.disabled = true;
+
+            submitButton.textContent = "Processing...";
+
+            loader.style.display = "block";
+
+        });
+
+    </script>
+
+</body>
+</html>
