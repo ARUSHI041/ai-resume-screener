@@ -1,168 +1,192 @@
 # Resume Screener AI
 
-An AI-powered resume screening web application built with Python and Flask.
-
-The application analyzes a candidate's resume against a given job description, calculates a keyword-based match score, identifies matched and missing skills, and provides suggestions to improve the resume.
+A Python and Flask-based resume screening web application that analyzes a candidate's resume against a job description, calculates a keyword-based match score, identifies matched and missing skills, and provides resume improvement suggestions.
 
 ## Features
 
-- Upload resume in PDF format
-- Extract resume text using PyMuPDF
-- Compare resume skills with job description
-- Calculate resume-to-job match percentage
-- Identify matched skills
-- Identify missing skills
-- Provide resume improvement suggestions
-- Optional Recruiter Mode for sending screening results through email
-- Secure uploaded filenames
-- Automatic deletion of uploaded resumes after processing
-- Input validation and error handling
-- Responsive web interface
+* Upload resumes in PDF format
+* Extract resume text using PyMuPDF
+* Compare resume skills with a job description
+* Calculate resume-to-job match percentage
+* Identify matched skills
+* Identify missing skills
+* Generate resume improvement suggestions
+* Optional Recruiter Mode for sending screening results through email
+* Secure uploaded filenames
+* Automatic deletion of uploaded resumes after processing
+* Input validation and error handling
+* Responsive web interface
 
 ## Tech Stack
 
-- Python
-- Flask
-- PyMuPDF
-- HTML5
-- CSS3
-- JavaScript
-- SMTP
-- Git & GitHub
+* Python
+* Flask
+* PyMuPDF
+* HTML5
+* CSS3
+* JavaScript
+* SMTP
+* Git & GitHub
 
 ## Project Structure
 
-    resume_screener_ai/
-    │
-    ├── app.py
-    ├── requirements.txt
-    ├── README.md
-    ├── .gitignore
-    │
-    ├── templates/
-    │   ├── index.html
-    │   └── result.html
-    │
-    ├── static/
-    │   ├── style.css
-    │   └── loader.gif
-    │
-    ├── utils/
-    │   ├── pdf_parser.py
-    │   ├── keyword_matcher.py
-    │   ├── suggestion_engine.py
-    │   └── email_sender.py
-    │
-    └── uploads/
+```text
+resume_screener_ai/
+│
+├── app.py
+├── requirements.txt
+├── README.md
+├── .gitignore
+│
+├── templates/
+│   ├── index.html
+│   └── result.html
+│
+├── static/
+│   ├── style.css
+│   └── loader.gif
+│
+├── utils/
+│   ├── pdf_parser.py
+│   ├── keyword_matcher.py
+│   ├── suggestion_engine.py
+│   └── email_sender.py
+│
+└── uploads/
+```
 
 ## How It Works
 
-    Candidate Resume (PDF)
-              │
-              ▼
-        PDF Text Extraction
-              │
-              ▼
-       Resume Skill Detection
-              │
-              ▼
-         Job Description
-              │
-              ▼
-       Skill Comparison Engine
-              │
-              ▼
-          Match Score
-              │
-         ┌────┴────┐
-         ▼         ▼
-      Matched    Missing
-       Skills     Skills
-         │         │
-         └────┬────┘
-              ▼
-       Improvement Suggestions
-              │
-              ▼
-          Result Dashboard
+```text
+Candidate Resume (PDF)
+          │
+          ▼
+   PDF Text Extraction
+          │
+          ▼
+   Resume Skill Detection
+          │
+          ▼
+     Job Description
+          │
+          ▼
+   Skill Comparison Engine
+          │
+          ▼
+       Match Score
+          │
+      ┌───┴───┐
+      ▼       ▼
+   Matched   Missing
+    Skills    Skills
+      │       │
+      └───┬───┘
+          ▼
+Improvement Suggestions
+          │
+          ▼
+    Result Dashboard
+```
 
 ## Installation
 
 ### 1. Clone the repository
 
-    git clone <your-github-repository-url>
+```bash
+git clone https://github.com/ARUSHI041/ai-resume-screener.git
+```
 
 ### 2. Navigate to the project
 
-    cd resume_screener_ai
+```bash
+cd ai-resume-screener
+```
 
 ### 3. Create a virtual environment
 
-    python -m venv venv
+```bash
+python -m venv venv
+```
 
 ### 4. Activate the virtual environment
 
-Windows:
+**Windows:**
 
-    venv\Scripts\activate
+```bash
+venv\Scripts\activate
+```
 
 ### 5. Install dependencies
 
-    pip install -r requirements.txt
+```bash
+pip install -r requirements.txt
+```
 
 ### 6. Run the application
 
-    python app.py
+```bash
+python app.py
+```
 
 Open the application in your browser:
 
-    http://127.0.0.1:5000
+```text
+http://127.0.0.1:5000
+```
 
 ## Recruiter Mode Configuration
 
 Recruiter Mode uses Gmail SMTP to send screening results.
 
-For security, email credentials should not be stored directly in the source code.
+For security, email credentials are not stored directly in the source code.
 
-Set the following environment variables:
+The application expects the following environment variables:
 
-    SENDER_EMAIL
-    SENDER_APP_PASSWORD
+```text
+SENDER_EMAIL
+SENDER_APP_PASSWORD
+```
 
 Never commit passwords, API keys, or other credentials to GitHub.
+
+> Note: Email configuration is optional. The core resume screening functionality works without configuring Recruiter Mode.
 
 ## Example
 
 A resume containing:
 
-    Python
-    SQL
-    Power BI
-    Excel
-    Data Analysis
+```text
+Python
+SQL
+Power BI
+Excel
+Data Analysis
+```
 
 can be compared with a job description requiring:
 
-    Python
-    SQL
-    Power BI
-    Excel
-    Data Analysis
-    Tableau
+```text
+Python
+SQL
+Power BI
+Excel
+Data Analysis
+Tableau
+```
 
 The application identifies:
 
 ### Matched Skills
 
-- Python
-- SQL
-- Power BI
-- Excel
-- Data Analysis
+* Python
+* SQL
+* Power BI
+* Excel
+* Data Analysis
 
 ### Missing Skill
 
-- Tableau
+* Tableau
 
 The application then calculates the corresponding resume-to-job match percentage and provides improvement suggestions.
 
@@ -172,35 +196,35 @@ The current version uses a predefined technical skill list and keyword-based mat
 
 Therefore, it may not fully understand:
 
-- Synonyms
-- Contextual meaning
-- Transferable skills
-- Semantic similarity
-- Different wording of the same skill
+* Synonyms
+* Contextual meaning
+* Transferable skills
+* Semantic similarity
+* Different wording of the same skill
 
 ## Future Improvements
 
-- NLP-based semantic matching
-- Improved skill extraction
-- Resume section detection
-- Experience and education analysis
-- Weighted skill scoring
-- Job-role specific skill detection
-- Database integration
-- Recruiter dashboard
-- Authentication
-- Resume analytics and visualizations
+* NLP-based semantic matching
+* Improved skill extraction
+* Resume section detection
+* Experience and education analysis
+* Weighted skill scoring
+* Job-role specific skill detection
+* Database integration
+* Recruiter dashboard
+* Authentication
+* Resume analytics and visualizations
 
 ## Security
 
 The project follows basic security practices including:
 
-- Secure uploaded filenames
-- PDF file validation
-- Temporary resume processing
-- Automatic deletion of uploaded resumes
-- Environment variables for email credentials
-- .gitignore for sensitive and local files
+* Secure uploaded filenames
+* PDF file validation
+* Temporary resume processing
+* Automatic deletion of uploaded resumes
+* Environment variables for email credentials
+* `.gitignore` for sensitive and local files
 
 ## Author
 
