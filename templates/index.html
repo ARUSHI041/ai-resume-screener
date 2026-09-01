@@ -4,32 +4,38 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Resume Screener AI</title>
+    <title>AI Resume Screener</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 </head>
 
 <body>
 
-    <div class="container">
+    <main class="container">
 
-        <h1>Resume Screener AI</h1>
+        <div class="header">
+            <h1>AI Resume Screener</h1>
 
-        <p class="subtitle">
-            Analyze your resume against a job description and identify
-            matching and missing skills.
-        </p>
+            <p class="subtitle">
+                Analyze your resume against a job description,
+                identify skill gaps, and improve your resume.
+            </p>
+        </div>
 
         {% if error %}
-            <div class="error-message">
+            <div class="error-message" role="alert">
                 {{ error }}
             </div>
         {% endif %}
 
-        <form method="POST" enctype="multipart/form-data">
+        <form method="POST"
+              enctype="multipart/form-data"
+              id="screening-form">
 
             <!-- Resume Upload -->
             <div class="form-group">
+
                 <label for="resume">
                     Upload Resume
                 </label>
@@ -43,8 +49,9 @@
                 >
 
                 <small>
-                    Only PDF files are supported.
+                    Upload your resume in PDF format.
                 </small>
+
             </div>
 
 
@@ -58,10 +65,15 @@
                 <textarea
                     id="jd"
                     name="jd"
-                    rows="8"
+                    rows="9"
                     placeholder="Paste the complete job description here..."
                     required
                 ></textarea>
+
+                <small>
+                    Include the required skills and qualifications
+                    from the job description.
+                </small>
 
             </div>
 
@@ -69,7 +81,7 @@
             <!-- Recruiter Mode -->
             <div class="recruiter-box">
 
-                <label class="checkbox-label">
+                <label class="checkbox-label" for="recruiter">
 
                     <input
                         type="checkbox"
@@ -84,14 +96,14 @@
                 </label>
 
                 <p>
-                    Enable this option to send the screening result
-                    to the candidate by email.
+                    Send the screening result to the candidate
+                    by email.
                 </p>
 
             </div>
 
 
-            <!-- Email -->
+            <!-- Candidate Email -->
             <div
                 class="form-group"
                 id="email-group"
@@ -107,12 +119,17 @@
                     id="email"
                     name="email"
                     placeholder="candidate@example.com"
+                    autocomplete="email"
                 >
+
+                <small>
+                    Required only when Recruiter Mode is enabled.
+                </small>
 
             </div>
 
 
-            <!-- Submit -->
+            <!-- Submit Button -->
             <button
                 type="submit"
                 id="submit-button"
@@ -121,32 +138,33 @@
             </button>
 
 
-            <!-- Loader -->
+            <!-- Loading Indicator -->
             <div
                 class="loader"
                 id="loader"
                 style="display: none;"
+                aria-live="polite"
             >
 
                 <img
                     src="{{ url_for('static', filename='loader.gif') }}"
-                    alt="Processing resume"
+                    alt=""
                 >
 
                 <p>
-                    Analyzing resume...
+                    Analyzing your resume...
                 </p>
 
             </div>
 
         </form>
 
-    </div>
+    </main>
 
 
     <script>
 
-        const form = document.querySelector("form");
+        const form = document.getElementById("screening-form");
 
         const loader = document.getElementById("loader");
 
@@ -163,7 +181,7 @@
             document.getElementById("email");
 
 
-        // Show or hide email field
+        // Show or hide candidate email field
         recruiterCheckbox.addEventListener("change", function () {
 
             if (this.checked) {
@@ -185,7 +203,7 @@
         });
 
 
-        // Show loader after form submission
+        // Prevent duplicate submissions
         form.addEventListener("submit", function () {
 
             submitButton.disabled = true;

@@ -9,25 +9,32 @@
 
     <title>Resume Screening Result</title>
 
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet"
+          href="{{ url_for('static', filename='style.css') }}">
 
 </head>
 
 
 <body>
 
-    <div class="container result-container">
+    <main class="container result-container">
 
-        <h1>Resume Screening Result</h1>
+        <!-- Header -->
 
-        <p class="subtitle">
-            Here is the analysis of your resume against the provided job description.
-        </p>
+        <div class="header">
+
+            <h1>Resume Screening Result</h1>
+
+            <p class="subtitle">
+                Here's how your resume matches the provided job description.
+            </p>
+
+        </div>
 
 
-        <!-- Score -->
+        <!-- Match Score -->
 
-        <div class="score-card">
+        <section class="score-card">
 
             <p class="score-label">
                 Resume Match Score
@@ -37,10 +44,17 @@
                 {{ score }}%
             </div>
 
-            {% if score >= 60 %}
+
+            {% if score >= 80 %}
 
                 <p class="status success">
-                    ✓ Strong Match
+                    ✓ Excellent Match
+                </p>
+
+            {% elif score >= 60 %}
+
+                <p class="status success">
+                    ✓ Good Match
                 </p>
 
             {% else %}
@@ -51,14 +65,16 @@
 
             {% endif %}
 
-        </div>
+        </section>
 
 
         <!-- Matched Skills -->
 
-        <div class="result-section matched">
+        <section class="result-section matched">
 
-            <h2>✓ Matched Skills</h2>
+            <h2>
+                ✓ Matched Skills
+            </h2>
 
             {% if matched %}
 
@@ -66,7 +82,9 @@
 
                     {% for skill in matched %}
 
-                        <li>{{ skill }}</li>
+                        <li>
+                            {{ skill }}
+                        </li>
 
                     {% endfor %}
 
@@ -80,14 +98,16 @@
 
             {% endif %}
 
-        </div>
+        </section>
 
 
         <!-- Missing Skills -->
 
-        <div class="result-section unmatched">
+        <section class="result-section unmatched">
 
-            <h2>✗ Missing Skills</h2>
+            <h2>
+                ✗ Missing Skills
+            </h2>
 
             {% if unmatched %}
 
@@ -95,7 +115,9 @@
 
                     {% for skill in unmatched %}
 
-                        <li>{{ skill }}</li>
+                        <li>
+                            {{ skill }}
+                        </li>
 
                     {% endfor %}
 
@@ -109,14 +131,16 @@
 
             {% endif %}
 
-        </div>
+        </section>
 
 
-        <!-- Suggestions -->
+        <!-- Improvement Suggestions -->
 
-        <div class="result-section suggestions">
+        <section class="result-section suggestions">
 
-            <h2>💡 Suggestions to Improve</h2>
+            <h2>
+                💡 Suggestions to Improve
+            </h2>
 
             {% if suggestions %}
 
@@ -124,7 +148,9 @@
 
                     {% for suggestion in suggestions %}
 
-                        <li>{{ suggestion }}</li>
+                        <li>
+                            {{ suggestion }}
+                        </li>
 
                     {% endfor %}
 
@@ -138,7 +164,7 @@
 
             {% endif %}
 
-        </div>
+        </section>
 
 
         <!-- Email Status -->
@@ -149,7 +175,8 @@
 
                 {% if email_status %}
 
-                    ✓ Screening result sent to {{ email }}.
+                    ✓ Screening result sent successfully to
+                    <strong>{{ email }}</strong>.
 
                 {% else %}
 
@@ -173,7 +200,7 @@
 
         </div>
 
-    </div>
+    </main>
 
 </body>
 
